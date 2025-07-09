@@ -47,7 +47,8 @@ public class UsuarioService {
         usuario.setLogin(dto.getLogin());
         usuario.setNome(dto.getNome());
         usuario.setSenha(passwordEncoder.encode(dto.getSenha()));
-        usuario.setNivelAcesso(dto.getNivelAcesso());       
+        usuario.setNivelAcesso(dto.getNivelAcesso());    
+        usuario.setUrlImagem(dto.getUrlImagem());
         
     	Usuario salvo = usuarioRepository.save(usuario);
 		return new UsuarioDTO(salvo);

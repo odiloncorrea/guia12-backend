@@ -39,8 +39,15 @@ public class SecurityConfig {
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers("/h2-console/**").permitAll() // Acesso ao H2 Console
                 .requestMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html").permitAll() // Acesso ao Swagger UI
+                
                 .requestMatchers(HttpMethod.POST, "/auth").permitAll() // Permitir login de usuário
-
+        
+                // acesso as imagens salvas
+                .requestMatchers(HttpMethod.GET, "/imagens/**").permitAll() 
+                
+                //Regras de Autorização para ARQUIVOS
+                .requestMatchers(HttpMethod.POST, "/imagens/upload").hasAnyRole("NIVEL1", "NIVEL2")
+                
                 //Regras de Autorização para TIPOS
                 .requestMatchers(HttpMethod.GET, "/tipos").hasAnyRole("NIVEL1", "NIVEL2", "NIVEL3")
                 .requestMatchers(HttpMethod.GET, "/tipos/{id}").hasAnyRole("NIVEL1", "NIVEL2", "NIVEL3")

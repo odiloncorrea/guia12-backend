@@ -1,5 +1,6 @@
 package com.cefet.ds_guia12.dto;
 
+import com.cefet.ds_guia12.entity.Imagem;
 import com.cefet.ds_guia12.entity.NivelAcesso;
 import com.cefet.ds_guia12.entity.Usuario;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -13,6 +14,7 @@ public class UsuarioDTO {
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String senha;
     private NivelAcesso nivelAcesso;
+    private String urlImagem;
 
     public UsuarioDTO() {
     }    
@@ -23,6 +25,7 @@ public class UsuarioDTO {
         this.login = usuario.getLogin();
         this.senha = usuario.getSenha();
         this.nivelAcesso = usuario.getNivelAcesso();
+        this.urlImagem = usuario.getUrlImagem();
     }
     
 	public Long getId() {
@@ -43,5 +46,9 @@ public class UsuarioDTO {
 
 	public NivelAcesso getNivelAcesso() {
 		return nivelAcesso;
-	}    
+	}
+
+	public String getUrlImagem() {
+		return urlImagem;
+	}  	
 }
