@@ -1,31 +1,30 @@
-# --- 1: BUILD DA APLICAÇÃO ---
-FROM maven:3.9.6-openjdk-21 AS build
+# Etapa de build com Java 21 e Maven
+FROM ubuntu:latest AS build
 
-# Define o diretório de trabalho dentro do contêiner.
+ENV DEBIAN_FRONTEND=noninteractive
+
+RUN apt-get update && \
+    apt-get install -y wget gnupg2 software-properties-common
+
+# Adiciona o repositório do Eclipse Temurin para Java 21
+RUN wget -O- https://packages.adoptium.net/artifactory/api/gpg/key/public | gpg --dearmor > /etc/apt/trusted.gpg.d/adoptium.gpg && \
+    add-apt-repository --yes https://packages.adoptium.net/artifactory/deb jammy main && \
+    apt-get update && \
+    apt-get install -y temurin-21-jdk maven
+
 WORKDIR /app
 
-COPY pom.xml .
+COPY . .
 
-# Baixa todas as dependências do projeto.
-RUN mvn dependency:go-offline -B
-
-# Copia o restante do código-fonte da aplicação para o contêiner.
-COPY src ./src
-
-# Compila e empacota a aplicação em um arquivo JAR executável.
 RUN mvn clean install -DskipTests
 
-# --- 2: EXECUÇÃO DA APLICAÇÃO ---
-FROM openjdk:21-jre-slim-buster
+# Etapa de runtime com Java 21
+FROM eclipse-temurin:21-jdk-jammy
 
-# Define o diretório de trabalho onde a aplicação será executada.
 WORKDIR /app
 
-# EXPÕE a porta que sua aplicação Spring Boot escuta (8080 por padrão).
 EXPOSE 8080
 
-# Copia o arquivo JAR compilado
 COPY --from=build /app/target/ds-guia12-0.0.1-SNAPSHOT.jar app.jar
 
-# Define o comando que será executado quando o contêiner for iniciado.
 ENTRYPOINT ["java", "-jar", "app.jar"]
