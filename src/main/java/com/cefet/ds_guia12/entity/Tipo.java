@@ -17,6 +17,9 @@ public class Tipo {
 	@Column(nullable = false)
 	private String descricao;
 	
+	@Column
+	private String teste2;
+	
 	public Tipo() {
 	}
 	
