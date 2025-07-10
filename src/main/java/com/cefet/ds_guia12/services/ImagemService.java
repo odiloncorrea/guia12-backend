@@ -42,7 +42,10 @@ public class ImagemService {
         	extensaoArquivo = nomeArquivoOriginal.substring(nomeArquivoOriginal.lastIndexOf("."));
         }
         String nomeArquivoUnico = UUID.randomUUID().toString() + extensaoArquivo;
-        Path caminhoArquivo = Paths.get(uploadDir, nomeArquivoUnico);
+        
+        Path pastaUpload = Paths.get(uploadDir);
+        Files.createDirectories(pastaUpload); // Garante que o diretório existe
+        Path caminhoArquivo = pastaUpload.resolve(nomeArquivoUnico);
 
         // 3. Salvar o arquivo no servidor
         Files.copy(arquivo.getInputStream(), caminhoArquivo);

@@ -1,5 +1,6 @@
 package com.cefet.ds_guia12.config;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -7,10 +8,13 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
 
+    @Value("${app.upload.dir}")
+    private String uploadDir;
+
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry
-          .addResourceHandler("/imagens/**") // URL acessível
-          .addResourceLocations("file:///d:/uploads/"); // caminho real (precisa das 3 barras)
+          .addResourceHandler("/imagens/**") // URL pública
+          .addResourceLocations("file:" + uploadDir + "/"); // Pasta de arquivos
     }
 }
