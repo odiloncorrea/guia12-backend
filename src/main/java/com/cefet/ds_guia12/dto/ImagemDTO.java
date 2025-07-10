@@ -1,9 +1,11 @@
 package com.cefet.ds_guia12.dto;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
 import com.cefet.ds_guia12.entity.Imagem;
 
+@Component
 public class ImagemDTO {
     private Long id; 
     private String nome;
