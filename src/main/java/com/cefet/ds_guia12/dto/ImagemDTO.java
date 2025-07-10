@@ -1,17 +1,10 @@
 package com.cefet.ds_guia12.dto;
 
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
-
 import com.cefet.ds_guia12.entity.Imagem;
 
-@Component
 public class ImagemDTO {
     private Long id; 
     private String nome;
-    
-    @Value("${app.url.base}")
-    private String baseUrl;
     
     public ImagemDTO() {
     }    
@@ -30,7 +23,7 @@ public class ImagemDTO {
 	}
 	
 	public String getUrlImagem() {
-		return this.baseUrl + "/imagens/" + nome;
+		return "https://ds-guia12.onrender.com/imagens/" + nome;
 	}
 
 }
