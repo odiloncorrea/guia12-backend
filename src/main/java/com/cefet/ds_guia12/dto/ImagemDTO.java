@@ -28,7 +28,7 @@ public class ImagemDTO {
 	}
 	
 	public String getUrlImagem() {
-		return this.baseUrl + nome;
+		return this.baseUrl + "/imagens/" + nome;
 	}
 
 }
