@@ -1,10 +1,15 @@
 package com.cefet.ds_guia12.dto;
 
+import org.springframework.beans.factory.annotation.Value;
+
 import com.cefet.ds_guia12.entity.Imagem;
 
 public class ImagemDTO {
     private Long id; 
     private String nome;
+    
+    @Value("${app.url.base}")
+    private String baseUrl;
     
     public ImagemDTO() {
     }    
@@ -23,7 +28,7 @@ public class ImagemDTO {
 	}
 	
 	public String getUrlImagem() {
-		return "http://localhost:8080/imagens/" + nome;
+		return this.baseUrl + nome;
 	}
 
 }
