@@ -19,7 +19,6 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import com.cefet.ds_guia12.security.JwtAuthenticationFilter;
 import com.cefet.ds_guia12.services.UsuarioDetailsService;
 
-
 @Configuration
 public class SecurityConfig {
 
